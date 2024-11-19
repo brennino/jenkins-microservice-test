@@ -32,7 +32,9 @@ pipeline{
                echo "Integration Test"
            }
         }
-    } post {
+    }
+
+    post{
         always {
             echo "I am awesome, I always run"
         }
