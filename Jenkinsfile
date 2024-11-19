@@ -15,7 +15,7 @@ node {
 
 //DECLATATIVE PIPELINE
 pipeline{
-    agent any
+    agent{ docker{ image 'maven:3.6.3' } }
     stages{
         stage('Build') {
             steps{
@@ -24,6 +24,7 @@ pipeline{
         }
         stage('Test') {
            steps{
+               sh "mvn --version"
                echo "Test"
            }
         }
@@ -44,5 +45,8 @@ pipeline{
         failure{
             echo "I run on failure"
         }
+        //changed{
+        //   changed status run when going from a failure build to a sucecessful one and vice versa
+        //}
     }
 }
