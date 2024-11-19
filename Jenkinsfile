@@ -15,11 +15,18 @@ node {
 
 //DECLATATIVE PIPELINE
 pipeline{
-    agent{ docker{ image 'maven:3.6.3' } }
+   // agent{ docker{ image 'maven:3.6.3' } }
+    agent any
     stages{
         stage('Build') {
             steps{
                echo "Build"
+               echo "BUILD PATH: $PATH"
+               echo "BUILD NUMBER: $env.BUILD_NUMBER"
+               echo "BUILD ID: $env.BUILD_ID"
+               echo "JOB NAME: $env.JOB_NAME"
+               echo "BUILD TAG: $env.BUILD_TAG"
+               echo "BUILD URL: $env.BUILD_URL"
             }
         }
         stage('Test') {
