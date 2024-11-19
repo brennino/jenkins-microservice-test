@@ -52,7 +52,33 @@ pipeline{
                sh "mvn failsafe:integration-test failsafe:verify"
            }
         }
-    }
+        stage('Package') {
+           steps{
+               sh "mvn package -DskipTests"
+           }
+        }
+
+        stage('Build Docker image') {
+           steps{
+              //docker build -t "brennino/currency-exchange-devops-example:$env.BUILD_TAG"
+              script{
+                dockerImage = docker.build("brennino/currency-exchange-devops-example:${env.BUILD_TAG}")
+              }
+           }
+        }
+        stage('Push Docker image') {
+            script{
+                docker.withRegistry('','dockerhub'){
+                    dockerImage.push();
+                    dockerImage.push('latest');
+
+                }
+            }
+           steps{
+             sh
+           }
+        }
+     }
 
     post{
         always {
