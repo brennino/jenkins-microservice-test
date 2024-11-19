@@ -20,7 +20,8 @@ pipeline{
     environment{
         dockerHome = tool 'myDocker'
         mavenHome  = tool 'myMaven'
-        PATH = "$dockerHome/bin:$mavenHome/bin:$PATH"
+        JAVA_HOME = tool 'myJdk'
+        PATH = "$dockerHome/bin:$mavenHome/bin:/$JAVA_HOME/bin:/$PATH"
     }
     stages{
         stage('Checkout and environment variables print') {
